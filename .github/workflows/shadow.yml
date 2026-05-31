@@ -1,0 +1,34 @@
+# Shadow PR review bot — installed via reusable workflow at sudsali/shadow.
+# See https://github.com/sudsali/shadow for docs and security model.
+name: Shadow
+
+on:
+  pull_request_target:
+    types: [opened, reopened, synchronize]
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        required: true
+        description: "PR number to review"
+      dry_run:
+        type: boolean
+        default: false
+      shadow_ref:
+        default: v0
+        description: "Pin to a Shadow release (v0 or commit SHA)"
+
+permissions:
+  contents: read
+  id-token: write
+  pull-requests: write
+  issues: write
+
+jobs:
+  shadow:
+    uses: sudsali/shadow/.github/workflows/shadow-review.yml@v0
+    with:
+      pr_number: ${{ inputs.pr_number }}
+      dry_run: ${{ inputs.dry_run && 'true' || 'false' }}
+      shadow_ref: ${{ inputs.shadow_ref || 'v0' }}
+    secrets:
+      AWS_ROLE_ARN: ${{ secrets.AWS_ROLE_ARN }}
