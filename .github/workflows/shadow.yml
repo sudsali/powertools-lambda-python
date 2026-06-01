@@ -2,6 +2,13 @@
 # See https://github.com/sudsali/shadow for docs and security model.
 name: Shadow
 
+# Embed the PR/issue number in the run name. The reusable workflow's run-name
+# is ignored when invoked via workflow_call — only the caller's template
+# applies. This is what lets the rate-limit gate (BOT_MAX_RUNS_PER_HOUR) match
+# prior runs for issue/issue_comment events, where the workflow_run record
+# has no `pull_requests` array to match on.
+run-name: "Shadow #${{ github.event.pull_request.number || github.event.issue.number || inputs.pr_number }}"
+
 on:
   pull_request_target:
     types: [opened, reopened, synchronize]
@@ -27,7 +34,7 @@ permissions:
 
 jobs:
   shadow:
-    uses: sudsali/shadow/.github/workflows/shadow-review.yml@1b9216cdecc65d62054a065eb05e3a287094940e # v0
+    uses: sudsali/shadow/.github/workflows/shadow-review.yml@e5b53f8c4bf79c0e9048250ea218d38f2dac5451 # v0 (round-18)
     with:
       pr_number: ${{ inputs.pr_number }}
       dry_run: ${{ inputs.dry_run && 'true' || 'false' }}
