@@ -34,7 +34,7 @@ permissions:
 
 jobs:
   shadow:
-    uses: sudsali/shadow/.github/workflows/shadow-review.yml@728308ea73eaeebb2a983ba798c2980ee707451f # v0
+    uses: sudsali/shadow/.github/workflows/shadow-review.yml@5340649de5784ea90e4a7815d19beeb1fb82cfd0 # v0
     with:
       pr_number: ${{ inputs.pr_number }}
       dry_run: ${{ inputs.dry_run && 'true' || 'false' }}
