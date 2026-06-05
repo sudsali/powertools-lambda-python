@@ -41,3 +41,5 @@ jobs:
       shadow_ref: ${{ inputs.shadow_ref || 'v0' }}
     secrets:
       AWS_ROLE_ARN: ${{ secrets.AWS_ROLE_ARN }}
+      GUARDRAIL_ID: ${{ secrets.GUARDRAIL_ID }}
+      GUARDRAIL_VERSION: ${{ secrets.GUARDRAIL_VERSION }}
